@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = NV_WHITE_COLOR;
+
     [self setupNavigationItem];
 }
 
@@ -43,6 +45,8 @@
 - (void)rightBarButtonAction {
     
 }
+
+#pragma mark ---- dealloc ----
 
 - (void)dealloc {
     NSLog(@"dealloc: %@", [[self class] description]);
