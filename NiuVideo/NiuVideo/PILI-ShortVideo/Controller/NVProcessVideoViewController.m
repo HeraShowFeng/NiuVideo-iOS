@@ -9,38 +9,52 @@
 #import "NVProcessVideoViewController.h"
 #import "NVPublishVideoViewController.h"
 
+#import "NVButtonRowView.h"
+
 @interface NVProcessVideoViewController ()
+<
+NVButtonRowViewDelegate
+>
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, strong) NSArray *titleArray;
-
+@property (nonatomic, strong) NVButtonRowView *buttonRowView;
 @end
 
 @implementation NVProcessVideoViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarHidden = YES;
+    if(!NV_IPHONE_X) {
+        [UIApplication sharedApplication].statusBarHidden = YES;
+    }
+    self.buttonRowView.hidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [UIApplication sharedApplication].statusBarHidden = NO;
+    self.buttonRowView.hidden = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = NV_WHITE_COLOR;
-
+    
     self.selectedIndex = 0;
     self.titleArray = @[@"滤镜编辑",@"MV 特效",@"背景音乐",@"剪辑拼接"];
     
     [self setupNavigationItem];
+    
+    NSInteger sapce = 32 * NV_WIDTH_RATIO;
+    self.buttonRowView = [[NVButtonRowView alloc] initWithFrame:CGRectMake(0, NV_SCREEN_HEIGHT - 69, NV_SCREEN_WIDTH, 69) infoDictionary:@{@"titles":@[@"滤镜",@"MV",@"音乐",@"编辑"],@"images":@[@"filter",@"mv",@"music",@"edit"],@"selectedImages":@[@"filter",@"mv",@"music",@"edit"]} space:sapce];
+    self.buttonRowView.delegate = self;
+    [self.view addSubview:_buttonRowView];
 }
 
 - (void)setupNavigationItem {
     self.navigationItem.title = self.titleArray[_selectedIndex];
-    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 52, 24)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 52, 24)];
     [backButton setImage:[UIImage imageNamed:@"go_back"] forState:UIControlStateNormal];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     backButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -49,7 +63,7 @@
     [backButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
     [backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *nextButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 66, 24)];
+    UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 66, 24)];
     [nextButton setImage:[UIImage imageNamed:@"next_step"] forState:UIControlStateNormal];
     [nextButton setTitle:@"下一步" forState:UIControlStateNormal];
     nextButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -58,8 +72,33 @@
     [nextButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -28, 0, 0)];
     [nextButton addTarget:self action:@selector(nextButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backButton];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:nextButton];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:nextButton];
+}
+
+- (void)buttonRowView:(NVButtonRowView *)buttonRowView didSelectedIndex:(NSInteger)index {
+    self.selectedIndex = index;
+    self.navigationItem.title = self.titleArray[_selectedIndex];
+    switch (index) {
+        case 0:{
+            
+        }
+            break;
+        case 1:{
+            
+        }
+            break;
+        case 2:{
+            
+        }
+            break;
+        case 3:{
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - button action
@@ -69,7 +108,7 @@
 }
 
 - (void)nextButtonAction:(UIButton *)nextButton {
-    NVPublishVideoViewController *publishVideoVC = [[NVPublishVideoViewController alloc]init];
+    NVPublishVideoViewController *publishVideoVC = [[NVPublishVideoViewController alloc] init];
     [self.navigationController pushViewController:publishVideoVC animated:YES];
 }
 

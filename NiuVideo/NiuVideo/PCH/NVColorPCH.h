@@ -33,6 +33,9 @@
 
 #define NV_BUTTON_GRAY_COLOR NV_COLOR_RGBA(216, 216, 216, 1)
 
+#define NV_TEXT_BLACK_COLOR NV_COLOR_RGBA(62, 62, 62, 1)
+#define NV_TEXT_GRAY_COLOR NV_COLOR_RGBA(235, 235, 235, 1)
+
 /*********************  字体  *********************/
 #define NV_LIGHT_FONT(FontSize) [UIFont fontWithName:@"HelveticaNeue-Light" size:FontSize]
 #define NV_REGULAR_FONT(FontSize) [UIFont fontWithName:@"HelveticaNeue-Regular" size:FontSize]

@@ -26,7 +26,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarHidden = YES;
+    if(!NV_IPHONE_X) {
+        [UIApplication sharedApplication].statusBarHidden = YES;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -46,30 +48,30 @@
 
 - (void)setupNavigationItem {
     self.navigationItem.title = @"录制视频";
-    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 20)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     [backButton setImage:[UIImage imageNamed:@"drop_down"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *setButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 20)];
+    UIButton *setButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     [setButton setImage:[UIImage imageNamed:@"set_icon"] forState:UIControlStateNormal];
     [setButton addTarget:self action:@selector(setButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc]initWithCustomView:backButton];
-    UIBarButtonItem *setBarButton = [[UIBarButtonItem alloc]initWithCustomView:setButton];
+    UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    UIBarButtonItem *setBarButton = [[UIBarButtonItem alloc] initWithCustomView:setButton];
     self.navigationItem.leftBarButtonItems = @[backBarButton,setBarButton];
 
     
-    UIButton *flashButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 20)];
+    UIButton *flashButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     [flashButton setImage:[UIImage imageNamed:@"flash_light_close"] forState:UIControlStateNormal];
     [flashButton setImage:[UIImage imageNamed:@"flash_light_open"] forState:UIControlStateSelected];
     [flashButton addTarget:self action:@selector(flashButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *cameraButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 30, 20)];
+    UIButton *cameraButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     [cameraButton setImage:[UIImage imageNamed:@"switch_camera"] forState:UIControlStateNormal];
     [cameraButton addTarget:self action:@selector(nextButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *flashBarButton = [[UIBarButtonItem alloc]initWithCustomView:flashButton];
-    UIBarButtonItem *cameraBarButton = [[UIBarButtonItem alloc]initWithCustomView:cameraButton];
+    UIBarButtonItem *flashBarButton = [[UIBarButtonItem alloc] initWithCustomView:flashButton];
+    UIBarButtonItem *cameraBarButton = [[UIBarButtonItem alloc] initWithCustomView:cameraButton];
     self.navigationItem.rightBarButtonItems = @[cameraBarButton,flashBarButton,];
 }
 
@@ -81,7 +83,7 @@
     
     // 录制按钮
     NSInteger buttonWidth = (NSInteger)NV_RECORD_BUTTON_WIDTH;
-    self.recordButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, buttonWidth, buttonWidth)];
+    self.recordButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, buttonWidth)];
     self.recordButton.center = CGPointMake(NV_SCREEN_WIDTH / 2, self.recordToolboxView.frame.size.height - 80);
     CGFloat buttonRadius = (CGFloat)buttonWidth/2;
     self.recordButton.layer.cornerRadius = buttonRadius;
@@ -94,7 +96,7 @@
     
     CGFloat centerY = self.recordButton.center.y - (buttonWidth/2 - 18);
     // 回删按钮
-    self.deleteButton = [[UIButton alloc]initWithFrame:CGRectMake(NV_SCREEN_WIDTH - 106, centerY, 34, 34)];
+    self.deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(NV_SCREEN_WIDTH - 106, centerY, 34, 34)];
     self.deleteButton.backgroundColor = NV_BUTTON_GRAY_COLOR;
     self.deleteButton.layer.cornerRadius = 17;
     [self.deleteButton setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
@@ -103,7 +105,7 @@
     self.deleteButton.hidden = YES;
     
     // 结束录制按钮
-    self.nextButton = [[UIButton alloc]initWithFrame:CGRectMake(NV_SCREEN_WIDTH - 55, centerY, 34, 34)];
+    self.nextButton = [[UIButton alloc] initWithFrame:CGRectMake(NV_SCREEN_WIDTH - 55, centerY, 34, 34)];
     self.nextButton.backgroundColor = NV_BUTTON_GRAY_COLOR;
     self.nextButton.layer.cornerRadius = 17;
     [self.nextButton setImage:[UIImage imageNamed:@"ready_yes"] forState:UIControlStateNormal];
@@ -184,7 +186,7 @@
 }
 
 - (void)nextButtonAction:(UIButton *)nextButton {
-    NVProcessVideoViewController *processVideoVC = [[NVProcessVideoViewController alloc]init];
+    NVProcessVideoViewController *processVideoVC = [[NVProcessVideoViewController alloc] init];
     [self.navigationController pushViewController:processVideoVC animated:YES];
 }
 

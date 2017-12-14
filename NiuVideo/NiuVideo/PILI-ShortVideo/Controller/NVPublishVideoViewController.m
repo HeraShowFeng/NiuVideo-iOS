@@ -16,7 +16,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarHidden = YES;
+    if(!NV_IPHONE_X) {
+        [UIApplication sharedApplication].statusBarHidden = YES;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -32,7 +34,7 @@
 
 - (void)setupNavigationItem {
     self.navigationItem.title = @"发布分享";
-    UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 52, 24)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 52, 24)];
     [backButton setImage:[UIImage imageNamed:@"go_back"] forState:UIControlStateNormal];
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     backButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -41,7 +43,7 @@
     [backButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
     [backButton addTarget:self action:@selector(backButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *draftButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 62, 24)];
+    UIButton *draftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 62, 24)];
     [draftButton setImage:[UIImage imageNamed:@"draft"] forState:UIControlStateNormal];
     [draftButton setTitle:@"草稿" forState:UIControlStateNormal];
     draftButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -50,8 +52,8 @@
     [draftButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 0)];
     [draftButton addTarget:self action:@selector(draftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:backButton];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:draftButton];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:draftButton];
 }
 
 #pragma mark - button action
