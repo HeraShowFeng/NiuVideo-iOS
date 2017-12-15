@@ -14,7 +14,6 @@
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) NSArray *imagesArray;
 @property (nonatomic, strong) NSArray *selectedImagesArray;
-@property (nonatomic, strong) NSMutableArray *buttonsArray;
 
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, assign) CGFloat space;
@@ -46,11 +45,7 @@
             return self;
         }
         
-//        if (_titleArray.count == _imagesArray.count == _selectedImagesArray.count) {
-            [self setupbuttonRowView:space];
-//        } else {
-//            return self;
-//        }
+        [self setupbuttonRowView:space];
     }
     return self;
 }
@@ -84,7 +79,6 @@
         }
         _averageYSpace = (frameHeight - NV_BUTTONS_HEIGHT * rowsCount)/(rowsCount + 1);
     }
-    _buttonsArray = [NSMutableArray array];
     [_imagesArray enumerateObjectsUsingBlock:^(NSString *str, NSUInteger idx, BOOL *stop) {
         CGFloat xSpace;
         CGFloat ySpace;
@@ -107,7 +101,7 @@
         [button setImage:[UIImage imageNamed:_selectedImagesArray[idx]] forState:UIControlStateSelected];
         [button setTitle:_titleArray[idx] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:11.f];
-        [button setTitleColor:NV_BLACK_COLOR forState:UIControlStateNormal];
+        [button setTitleColor:NV_COLOR_RGBA(178, 178, 178, 1) forState:UIControlStateNormal];
         [button setTitleColor:NV_BLACK_COLOR forState:UIControlStateSelected];
         [button setImageEdgeInsets:UIEdgeInsetsMake(0, 8, 16, 0)];
         [button setTitleEdgeInsets:UIEdgeInsetsMake(28, -20, 0, 0)];
@@ -118,21 +112,20 @@
             button.selected = YES;
             _selectedIndex = 0;
         }
-        [_buttonsArray addObject:button];
     }];
 }
 
 - (void)buttonAction:(UIButton *)button {
     NSInteger index = button.tag - 100;
-    for (UIButton *viewButton in _buttonsArray) {
+    for (UIButton *viewButton in self.subviews) {
         if (viewButton.tag == button.tag) {
             if (_selectedIndex == index) {
                 return;
             }
             _selectedIndex = index;
-            button.selected = YES;
+            viewButton.selected = YES;
         } else{
-            button.selected = NO;
+            viewButton.selected = NO;
         }
     }
     if (self.delegate && [self.delegate respondsToSelector:@selector(buttonRowView:didSelectedIndex:)]) {

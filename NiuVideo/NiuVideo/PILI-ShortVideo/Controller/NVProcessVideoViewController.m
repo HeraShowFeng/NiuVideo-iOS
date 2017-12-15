@@ -47,7 +47,7 @@ NVButtonRowViewDelegate
     [self setupNavigationItem];
     
     NSInteger sapce = 32 * NV_WIDTH_RATIO;
-    self.buttonRowView = [[NVButtonRowView alloc] initWithFrame:CGRectMake(0, NV_SCREEN_HEIGHT - 69, NV_SCREEN_WIDTH, 69) infoDictionary:@{@"titles":@[@"滤镜",@"MV",@"音乐",@"编辑"],@"images":@[@"filter",@"mv",@"music",@"edit"],@"selectedImages":@[@"filter",@"mv",@"music",@"edit"]} space:sapce];
+    self.buttonRowView = [[NVButtonRowView alloc] initWithFrame:CGRectMake(0, NV_SCREEN_HEIGHT - 69, NV_SCREEN_WIDTH, 69) infoDictionary:@{@"titles":@[@"滤镜",@"MV",@"音乐",@"编辑"],@"images":@[@"filter",@"mv",@"music",@"edit"],@"selectedImages":@[@"filter_active",@"mv_active",@"music_active",@"edit_active"]} space:sapce];
     self.buttonRowView.delegate = self;
     [self.view addSubview:_buttonRowView];
 }
