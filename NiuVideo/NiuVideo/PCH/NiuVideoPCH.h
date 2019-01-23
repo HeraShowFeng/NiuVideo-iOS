@@ -39,7 +39,8 @@
 #define NV_HEIGHT_RATIO (NV_SCREEN_HEIGHT / 667.f)
 
 /********************  第三方  ********************/
-
+#import <PLShortVideoKit/PLShortVideoKit.h>
+#import <PLPlayerKit.h>
 
 
 /******************** 公共类接口 ********************/
